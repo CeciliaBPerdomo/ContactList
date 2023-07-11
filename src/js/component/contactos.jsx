@@ -1,11 +1,72 @@
-import React from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext"
 
 export const Contactos = () => {
+    const { store, actions } = useContext(Context);
+
+    useEffect(() => {
+        actions.mostrarContactos("Agenda_de_Cecilia_Perdomo")
+    }, [])
+
+    console.log(store.contactos)
+
     return (
         <>
             <div className="container">
-                Contactos
+               <div className="card mb-3" style={{}}>
+                    {store.contactos.map((item, id) => (
+                    <div className="row g-0" key={id}>
+                        <div className="col-md-4">
+                            <img 
+                            src="https://media.istockphoto.com/id/1069531070/es/foto/grupos-de-perros-cachorros-de-labrador-perro-perdiguero-de-labrador-cachorro-chocolate-delante.jpg?s=612x612&w=0&k=20&c=wXdA0f-P87Co9OWlwpUMEhW8q4kRucJPOAYnPJTvg40=" 
+                            className="img-fluid" alt="..." />
+                        </div>
+                        <div className="col-md-8">
+                            <div className="card-body">
+                                <h5 className="card-title"
+                                style={{marginBottom: "20px", color: "red"}}
+                                >
+                                    <b>{item.full_name} # {item.id}</b>
+                                </h5>
+                                <hr /> 
+
+                                <div className="row" style={{marginLeft: "25px"}}>
+                                    <div className="col">
+                                        <p className="card-text"><b>Correo electrónico:</b></p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="card-text">{item.email}</p>
+                                    </div>
+                                </div>
+
+                                <div className="row" style={{marginLeft: "25px"}}>
+                                    <div className="col">
+                                        <p className="card-text"><b>Télefono:</b></p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="card-text">{item.address}</p>
+                                    </div>
+                                </div>
+
+                                <div className="row" style={{marginLeft: "25px"}}>
+                                    <div className="col">
+                                        <p className="card-text"><b>Dirección:</b></p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="card-text">{item.phone}</p>
+                                    </div>
+                                </div>
+
+                                <hr />
+
+                                
+
+                            </div>
+                        </div>
+                    </div>
+                    ))}
+                </div>
             </div>
         </>
     )

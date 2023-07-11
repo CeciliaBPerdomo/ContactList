@@ -13,13 +13,18 @@ export const Formulario = () => {
 
     const agregar = async (e) => {
         e.preventDefault()
-        let resp = await actions.agregarContactos(nombre, mail, direccion, telefono)
 
-        if (resp === true) {
-            setNombre("")
-            setMail("")
-            setDireccion("")
-            setTelefono("")
+        if (nombre != "" && mail !="" && direccion != "" && telefono != "") {
+            let resp = await actions.agregarContactos(nombre, mail, direccion, telefono)
+
+            if (resp === true) {
+                setNombre("")
+                setMail("")
+                setDireccion("")
+                setTelefono("")
+            }
+        } else {
+            console.log("Falta cargar datos")
         }
     }
 
