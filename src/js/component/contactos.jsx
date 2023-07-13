@@ -33,10 +33,10 @@ export const Contactos = () => {
                                             onClick={() => actions.borrarContacto(item.id)}>
                                             <i className="fa fa-trash"></i>
                                         </button>
-                                        <button className="btn btn-outline-dark float-end" style={{height: "40px"}}>
+                                        {/* <button className="btn btn-outline-dark float-end" style={{height: "40px"}}>
                                             <i className="fa fa-pen float-end"></i>
                                         </button>
-                                   
+                                    */}
                                         </h5>
 
                                     <hr />
