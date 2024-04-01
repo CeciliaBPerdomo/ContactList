@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext"
 
 export const Formulario = () => {
-    const { store, actions } = useContext(Context);
+    const { actions } = useContext(Context);
 
     const [nombre, setNombre] = useState("")
     const [mail, setMail] = useState("")
@@ -24,7 +24,7 @@ export const Formulario = () => {
                 setTelefono("")
             }
         } else {
-            console.log("Falta cargar datos")
+            alert("Falta cargar datos")
         }
     }
 

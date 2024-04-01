@@ -26,8 +26,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			agregarContactos: async (nombre, email, telefono, direccion) => {
 				try {
-
-					// const response = await fetch("https://assets.breatheco.de/apis/fake/contact/", {
 					const response = await fetch(urlCompleta, {
 						method: "POST",
 						headers: { 'Content-Type': 'application/json' },
@@ -49,13 +47,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			borrarContacto: async (id) => {
 				try {
-					const response = await fetch("https://assets.breatheco.de/apis/fake/contact/" + id, {
+					const response = await fetch(urlCompleta + "/" + id, {
 						method: "DELETE",
 						headers: { 'Content-Type': 'application/json' },
 					})
 					const data = await response.json()
 					console.log(data)
-					getActions().mostrarContactos("Agenda_de_Cecilia_Perdomo")
+					getActions().mostrarContactos()
 					return true
 
 				} catch (error) {
@@ -79,7 +77,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			mostrarContacto: async (id) => {
 				try {
-					fetch("https://assets.breatheco.de/apis/fake/contact/" + id)
+					fetch(urlCompleta + "/" + id)
 						.then(data => { return data.json() })
 						.then(post => { setStore({ contacto: post }) });
 				} catch (error) {
