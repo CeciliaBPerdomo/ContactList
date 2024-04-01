@@ -15,7 +15,7 @@ export const Formulario = () => {
         e.preventDefault()
 
         if (nombre != "" && mail !="" && direccion != "" && telefono != "") {
-            let resp = await actions.agregarContactos(nombre, mail, direccion, telefono)
+            let resp = await actions.agregarContactos(nombre, mail, telefono, direccion)
 
             if (resp === true) {
                 setNombre("")

@@ -6,7 +6,7 @@ export const Contactos = () => {
     const { store, actions } = useContext(Context);
 
     useEffect(() => {
-        actions.mostrarContactos("Agenda_de_Cecilia_Perdomo")
+        actions.mostrarContactos()
     }, [])
 
 

@@ -1,26 +1,42 @@
 // Info en -->: https://assets.breatheco.de/apis/fake/contact/
+const url = "https://playground.4geeks.com/contact/agendas/"
+const slug = "ceciper"
+const urlCompleta = url + slug + "/contacts"
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
+
 		store: {
 			contactos: [],
 			contacto: {},
 		},
+
 		actions: {
+			crearAgenda: async () => {
+				try {
+					const response = await fetch(url + slug, {
+						method: "POST",
+						headers: { "Content-Type": "application/json" },
+					})
+					console.log(response)
+				} catch (error) {
+					console.log(error)
+				}
+			},
+
 			agregarContactos: async (nombre, email, telefono, direccion) => {
 				try {
-					let contacto = {
-						"full_name": nombre,
-						"email": email,
-						"agenda_slug": "Agenda_de_Cecilia_Perdomo",
-						"address": direccion,
-						"phone": telefono,
-					}
 
-					const response = await fetch("https://assets.breatheco.de/apis/fake/contact/", {
+					// const response = await fetch("https://assets.breatheco.de/apis/fake/contact/", {
+					const response = await fetch(urlCompleta, {
 						method: "POST",
 						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(contacto)
+						body: JSON.stringify({
+							name: nombre,
+							phone: telefono,
+							email: email,
+							address: direccion,
+						})
 					})
 					const data = await response.json()
 					console.log(data)
@@ -32,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			borrarContacto: async (id) => {
-				try{ 
+				try {
 					const response = await fetch("https://assets.breatheco.de/apis/fake/contact/" + id, {
 						method: "DELETE",
 						headers: { 'Content-Type': 'application/json' },
@@ -42,24 +58,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 					getActions().mostrarContactos("Agenda_de_Cecilia_Perdomo")
 					return true
 
-				} catch(error){
+				} catch (error) {
 					console.error(error)
 					return false
 				}
-			}, 
+			},
 
-			mostrarContactos: async (agenda_slug) => {
+			mostrarContactos: async () => {
+				const dire = url + slug + "/contacts"
 				try {
-					fetch("https://assets.breatheco.de/apis/fake/contact/agenda/" + agenda_slug)
-						.then(data => {
-							return data.json();
-						})
-						.then(post => {
-							setStore({
-								contactos: post
-							});
-						});
-
+					const resp = await fetch(dire)
+					const data = await resp.json()
+					console.log(data)
+					setStore({ contactos: data.contacts })
 				} catch (error) {
 					console.error(error)
 					return false
@@ -70,7 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					fetch("https://assets.breatheco.de/apis/fake/contact/" + id)
 						.then(data => { return data.json() })
-						.then(post => { setStore({contacto: post})});
+						.then(post => { setStore({ contacto: post }) });
 				} catch (error) {
 					console.error(error)
 					return false
